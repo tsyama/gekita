@@ -1,12 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "tsyama/gekita",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": [
-        "framework",
-        "laravel"
-    ],
-    "license": "MIT",
+    "description": "戯曲webエディタ",
     "require": {
         "php": "^7.1.3",
         "fideloper/proxy": "^4.0",
