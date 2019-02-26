@@ -15,22 +15,13 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-dark bg-dark">
             <a class="navbar-brand" href="{{ url('/') }}">
                 GEKITA
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <form class="form-inline">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                </form>
-                <div class="navbar-nav">
-                    <a class="nav-link" href="{{ url('posts') }}">{{ __('Posts') }}</a>
-                    <a class="nav-link" href="{{ url('users') }}">{{ __('Users') }}</a>
-                </div>
-            </div>
+            <form class="form-inline mr-auto col-sm-6" style="margin-top: 5px; margin-bottom: 5px;">
+                <input class="form-control mr-sm-6" style="width: 100%;" placeholder="タイトル" aria-label="タイトル">
+            </form>
         </nav>
         <main class="py-4">
             <div class="container-fluid">
