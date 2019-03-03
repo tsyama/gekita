@@ -1,10 +1,6 @@
 <html lang="{{ app()->getLocale() }}">
 <head>
-    @if($__env->yieldContent('title') === '')
-        <title>gekita</title>
-    @else
-        <title>@yield('title') - gekita</title>
-    @endif
+    <title>gekita</title>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,7 +16,7 @@
                 GEKITA
             </a>
             <form class="form-inline mr-auto col-sm-6" style="margin-top: 5px; margin-bottom: 5px;">
-                <input class="form-control mr-sm-6" style="width: 100%;" placeholder="タイトル" aria-label="タイトル">
+                <div id="titleInput"></div>
             </form>
         </nav>
         <main class="py-4">
