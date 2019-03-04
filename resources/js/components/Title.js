@@ -9,11 +9,6 @@ export default class Title extends Component {
         };
     }
 
-    changeTitle(value) {
-        console.log(value);
-        document.title = value;
-    }
-
     render() {
         return (
             <input id="gekiTitle" className="form-control" onInput={(e) => {document.title = e.target.value}} placeholder="タイトル"
