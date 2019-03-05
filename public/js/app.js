@@ -61267,6 +61267,8 @@ function (_Component) {
     };
     return _this;
   }
+  /* TODO: 入力のエスケープ */
+
 
   _createClass(GekiEditor, [{
     key: "render",
@@ -61293,7 +61295,10 @@ function (_Component) {
         className: "card-header"
       }, " \u30D7\u30EC\u30D3\u30E5\u30FC "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "gekiPreview",
-        className: "card-body"
+        className: "card-body",
+        onWheel: function onWheel(e) {
+          return _this2.sideScroll(e);
+        }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
         dangerouslySetInnerHTML: {
           __html: this.state.body
@@ -61363,6 +61368,18 @@ function (_Component) {
         elem.value = val.substr(0, pos) + '\t' + val.substr(pos, val.length);
         elem.setSelectionRange(pos + 1, pos + 1);
       }
+    }
+  }, {
+    key: "sideScroll",
+    value: function sideScroll(e) {
+      var gekiPreview = document.getElementById("gekiPreview");
+
+      if (e.deltaY !== 0) {
+        var scrollSize = e.deltaY;
+        document.getElementById("gekiPreview").scrollLeft -= scrollSize;
+      }
+
+      return false;
     }
   }]);
 

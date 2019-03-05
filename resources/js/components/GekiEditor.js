@@ -9,6 +9,7 @@ export default class GekiEditor extends Component {
         };
     }
 
+    /* TODO: 入力のエスケープ */
     render() {
         return (
             <div className="row" >
@@ -20,8 +21,7 @@ export default class GekiEditor extends Component {
                 <div className = "col-sm-6">
                     <div className="card bg-white h-75">
                         <div className = "card-header" > プレビュー </div>
-                        <div id="gekiPreview" className="card-body">]
-                            /* TODO: 入力のエスケープ */
+                        <div id="gekiPreview" className="card-body" onWheel={(e) => this.sideScroll(e)}>
                             <table dangerouslySetInnerHTML={{__html: this.state.body}}></table>
                         </div>
                     </div>
@@ -79,6 +79,14 @@ export default class GekiEditor extends Component {
             elem.value = val.substr(0, pos) + '\t' + val.substr(pos, val.length);
             elem.setSelectionRange(pos + 1, pos + 1);
         }
+    }
+
+    sideScroll(e) {
+        if (e.deltaY !== 0) {
+            let scrollSize = e.deltaY;
+            document.getElementById("gekiPreview").scrollLeft -= scrollSize;
+        }
+        return false;
     }
 }
 
