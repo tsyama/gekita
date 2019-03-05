@@ -61276,27 +61276,94 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-sm"
+        className: "col-sm-6"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         className: "form-control h-75",
+        onKeyDown: this.tabber,
         onInput: function onInput(e) {
           _this2.setState({
-            body: e.target.value
+            body: _this2.convertHtml(e.target.value)
           });
         }
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-sm"
+        className: "col-sm-6"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card bg-white h-75"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header"
       }, " \u30D7\u30EC\u30D3\u30E5\u30FC "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "gekiPreview",
         className: "card-body"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.state.body)))));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        dangerouslySetInnerHTML: {
+          __html: this.state.body
+        }
+      })))));
     }
   }, {
-    key: "updatePreview",
-    value: function updatePreview() {}
+    key: "convertHtml",
+    value: function convertHtml(body) {
+      var lines = body.split("\n");
+      var result = "";
+
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        result += this.lineParser(line);
+      }
+
+      return result;
+    }
+  }, {
+    key: "lineParser",
+    value: function lineParser(line) {
+      if (line === '') {
+        return '<tr><td colspan="2">　</td></tr>';
+      }
+
+      var h1Check = line.match(/^# (.*)/);
+
+      if (h1Check) {
+        return '<tr><td colspan="2"><h1>' + h1Check[1] + '</h1></td></tr>';
+      }
+
+      var h2Check = line.match(/^## (.*)/);
+
+      if (h2Check) {
+        return '<tr><td colspan="2"><h2>' + h2Check[1] + '</h2></td></tr>';
+      }
+
+      var h3Check = line.match(/^### (.*)/);
+
+      if (h3Check) {
+        return '<tr><td colspan="2"><h3>' + h3Check[1] + '</h3></td></tr>';
+      }
+
+      var dooCheck = line.match(/^\t(.*)/);
+
+      if (dooCheck) {
+        return '<tr><td colspan="2"><span class="doo">' + dooCheck[1] + '</span></td></tr>';
+      }
+
+      var serifs = line.split("\t");
+
+      if (serifs.length >= 2) {
+        line = '<tr><td class="align-top"><span class="badge badge-dark">' + serifs[0] + '</span></td><td><span>' + serifs[1] + '</span></td></tr>';
+      }
+
+      return line;
+    }
+  }, {
+    key: "tabber",
+    value: function tabber(e) {
+      if (e.key === 'Tab' && e.keyCode !== 229) {
+        e.preventDefault();
+        var elem = e.target;
+        var val = elem.value;
+        var pos = elem.selectionStart;
+        elem.value = val.substr(0, pos) + '\t' + val.substr(pos, val.length);
+        elem.setSelectionRange(pos + 1, pos + 1);
+      }
+    }
   }]);
 
   return GekiEditor;

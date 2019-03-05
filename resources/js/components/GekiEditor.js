@@ -12,21 +12,73 @@ export default class GekiEditor extends Component {
     render() {
         return (
             <div className="row" >
-                <div className="col-sm">
-                <textarea className="form-control h-75" onInput={(e) => {
-                    this.setState({body: e.target.value});
+                <div className="col-sm-6">
+                <textarea className="form-control h-75" onKeyDown={this.tabber} onInput={(e) => {
+                    this.setState({body: this.convertHtml(e.target.value)});
                 }} />
                 </div>
-                <div className = "col-sm">
+                <div className = "col-sm-6">
                     <div className="card bg-white h-75">
                         <div className = "card-header" > プレビュー </div>
-                        <div className="card-body">
-                            <p>{this.state.body}</p>
+                        <div id="gekiPreview" className="card-body">]
+                            /* TODO: 入力のエスケープ */
+                            <table dangerouslySetInnerHTML={{__html: this.state.body}}></table>
                         </div>
                     </div>
                 </div>
             </div>
         );
+    }
+
+    convertHtml(body) {
+        let lines = body.split("\n");
+        let result = "";
+        for (let i = 0; i < lines.length; i++) {
+            let line = lines[i];
+            result += this.lineParser(line);
+        }
+        return result;
+    }
+
+    lineParser(line) {
+        if (line === '') {
+            return '<tr><td colspan="2">　</td></tr>';
+        }
+        let h1Check = line.match(/^# (.*)/);
+        if (h1Check) {
+            return '<tr><td colspan="2"><h1>' + h1Check[1] + '</h1></td></tr>';
+        }
+
+        let h2Check = line.match(/^## (.*)/);
+        if (h2Check) {
+            return '<tr><td colspan="2"><h2>' + h2Check[1] + '</h2></td></tr>';
+        }
+
+        let h3Check = line.match(/^### (.*)/);
+        if (h3Check) {
+            return '<tr><td colspan="2"><h3>' + h3Check[1] + '</h3></td></tr>';
+        }
+
+        let dooCheck = line.match(/^\t(.*)/);
+        if (dooCheck) {
+            return '<tr><td colspan="2"><span class="doo">' + dooCheck[1] + '</span></td></tr>'
+        }
+        let serifs = line.split("\t");
+        if (serifs.length >= 2) {
+            line = '<tr><td class="align-top"><span class="badge badge-dark">' + serifs[0] + '</span></td><td><span>' + serifs[1] + '</span></td></tr>';
+        }
+        return line;
+    }
+
+    tabber(e) {
+        if (e.key === 'Tab' && e.keyCode !== 229) {
+            e.preventDefault();
+            var elem = e.target;
+            var val = elem.value;
+            var pos = elem.selectionStart;
+            elem.value = val.substr(0, pos) + '\t' + val.substr(pos, val.length);
+            elem.setSelectionRange(pos + 1, pos + 1);
+        }
     }
 }
 
