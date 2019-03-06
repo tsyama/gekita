@@ -84,7 +84,7 @@ export default class GekiEditor extends Component {
     sideScroll(e) {
         if (e.deltaY !== 0) {
             let scrollSize = e.deltaY;
-            document.getElementById("gekiPreview").scrollLeft -= scrollSize;
+            document.getElementById("gekiPreview").scrollLeft -= scrollSize / 2;
         }
         return false;
     }

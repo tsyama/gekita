@@ -61372,11 +61372,9 @@ function (_Component) {
   }, {
     key: "sideScroll",
     value: function sideScroll(e) {
-      var gekiPreview = document.getElementById("gekiPreview");
-
       if (e.deltaY !== 0) {
         var scrollSize = e.deltaY;
-        document.getElementById("gekiPreview").scrollLeft -= scrollSize;
+        document.getElementById("gekiPreview").scrollLeft -= scrollSize / 2;
       }
 
       return false;
