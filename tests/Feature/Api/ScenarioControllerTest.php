@@ -19,6 +19,24 @@ class ScenarioControllerTest extends TestCase
         $response = $this->json('POST', '/api/scenario/', $postData);
 
         $response->assertStatus(200);
+        $response->assertJson([
+            'status' => true,
+            'scenario' => [
+                'title' => $postData['title'],
+                'body' => $postData['body'],
+            ],
+        ]);
         $this->assertDatabaseHas('scenarios', $postData);
+    }
+
+    public function test_脚本新規登録APIに適切なパラメータを渡さなければstatusがfalse()
+    {
+        $postData = [];
+        $response = $this->json('POST', '/api/scenario/', $postData);
+
+        $response->assertStatus('200');
+        $response->assertJson([
+            'status' => false,
+        ]);
     }
 }

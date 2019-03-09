@@ -1,0 +1,13 @@
+GET http://gekita.local/api/scenario/
+
+###
+
+
+POST http://gekita.local/api/scenario
+Content-Type: application/json
+
+{
+"title": "test",
+"body": "testtest"
+}
+###

@@ -14,5 +14,10 @@ class ScenarioController extends Controller
         $scenario->title = $request->title;
         $scenario->body = $request->body;
         $scenario->saveOrFail();
+
+        return [
+            'status' => true,
+            'scenario' => $scenario,
+        ];
     }
 }
