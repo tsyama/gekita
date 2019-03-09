@@ -9,9 +9,33 @@ use App\Http\Controllers\Controller;
 
 class ScenarioController extends Controller
 {
+    /**
+     * 脚本新規登録API
+     * @param StoreScenario $request
+     * @return array
+     * @throws \Throwable
+     */
     public function store(StoreScenario $request)
     {
         $scenario = new Scenario;
+        $scenario->title = $request->title;
+        $scenario->body = $request->body;
+        $scenario->saveOrFail();
+
+        return [
+            'scenario' => $scenario,
+        ];
+    }
+
+    /**
+     * 脚本編集API
+     * @param StoreScenario $request
+     * @param $id
+     * @return array
+     */
+    public function update(StoreScenario $request, $id)
+    {
+        $scenario = Scenario::find($id);
         $scenario->title = $request->title;
         $scenario->body = $request->body;
         $scenario->saveOrFail();
