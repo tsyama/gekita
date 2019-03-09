@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\StoreScenario;
 use App\Scenario;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ScenarioController extends Controller
 {
-    public function store(Request $request)
+    public function store(StoreScenario $request)
     {
         $scenario = new Scenario;
         $scenario->title = $request->title;
@@ -16,7 +17,6 @@ class ScenarioController extends Controller
         $scenario->saveOrFail();
 
         return [
-            'status' => true,
             'scenario' => $scenario,
         ];
     }

@@ -20,7 +20,6 @@ class ScenarioControllerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJson([
-            'status' => true,
             'scenario' => [
                 'title' => $postData['title'],
                 'body' => $postData['body'],
@@ -29,14 +28,14 @@ class ScenarioControllerTest extends TestCase
         $this->assertDatabaseHas('scenarios', $postData);
     }
 
-    public function test_脚本新規登録APIに適切なパラメータを渡さなければstatusがfalse()
+    public function test_脚本新規登録APIに適切なパラメータを渡さなければ422エラー()
     {
-        $postData = [];
+        $postData = [
+            'body' => 'testtest',
+        ];
         $response = $this->json('POST', '/api/scenario/', $postData);
 
-        $response->assertStatus('200');
-        $response->assertJson([
-            'status' => false,
-        ]);
+        $response->assertStatus(422);
+        $this->assertDatabaseMissing('scenarios', $postData);
     }
 }
