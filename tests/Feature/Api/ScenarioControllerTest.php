@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api;
 
+use App\Scenario;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -9,6 +10,24 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class ScenarioControllerTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_脚本一覧取得APIにGETアクセスして脚本の一覧が取得できる()
+    {
+        $scenarios = factory(Scenario::class, 10)->create();
+        $scenario = $scenarios[0];
+
+        $response = $this->json('GET', '/api/scenario/');
+        $response->assertStatus(200);
+        $response->assertJson([
+            'scenarios' => [
+                [
+                    'id' => $scenario->id,
+                    'title' => $scenario->title,
+                    'body' => $scenario->body,
+                ],
+            ],
+        ]);
+    }
 
     public function test_脚本新規登録APIにPOSTアクセスして脚本が登録できる()
     {
