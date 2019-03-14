@@ -16,8 +16,11 @@
                 GEKITA
             </a>
             <form class="form-inline mr-auto col-sm-6" style="margin-top: 5px; margin-bottom: 5px;">
-                <div id="titleInput"></div>
+                <div id="titleInput" data-title="{{ $scenario->title ?? null }}"></div>
             </form>
+            <ul class="navbar-nav ml-auto">
+                <li id="saveButton"></li>
+            </ul>
         </nav>
         <main class="py-4">
             <div class="container-fluid">

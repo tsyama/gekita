@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+let gekiEditor = document.getElementById("gekiEditor");
+
 export default class GekiEditor extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            body: ''
+            body: gekiEditor.dataset.body ? gekiEditor.dataset.body : ""
         };
     }
 
@@ -14,15 +16,15 @@ export default class GekiEditor extends Component {
         return (
             <div className="row" >
                 <div className="col-sm-6">
-                <textarea className="form-control h-75" onKeyDown={this.tabber} onInput={(e) => {
-                    this.setState({body: this.convertHtml(e.target.value)});
-                }} />
+                <textarea id="gekiBody" className="form-control h-75" onKeyDown={this.tabber} onInput={(e) => {
+                    this.setState({body: e.target.value});
+                }} defaultValue={this.state.body} />
                 </div>
                 <div className = "col-sm-6">
                     <div className="card bg-white h-75">
                         <div className = "card-header" > プレビュー </div>
                         <div id="gekiPreview" className="card-body" onWheel={(e) => this.sideScroll(e)}>
-                            <table dangerouslySetInnerHTML={{__html: this.state.body}}></table>
+                            <table dangerouslySetInnerHTML={{__html: this.convertHtml(this.state.body)}}></table>
                         </div>
                     </div>
                 </div>
@@ -92,5 +94,5 @@ export default class GekiEditor extends Component {
 
 ReactDOM.render(
     <GekiEditor />,
-    document.getElementById('gekiEditor')
+    gekiEditor
 );

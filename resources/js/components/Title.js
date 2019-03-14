@@ -1,23 +1,28 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+let titleInput = document.getElementById("titleInput");
+
 export default class Title extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: 'gekita'
+            title: titleInput.dataset.title ? titleInput.dataset.title : ""
         };
     }
 
     render() {
         return (
-            <input id="gekiTitle" className="form-control" onInput={(e) => {document.title = e.target.value}} placeholder="タイトル"
-                       aria-label="タイトル" />
+            <input id="gekiTitle" className="form-control" onChange={(e) => {
+                this.setState({title: e.target.value}, () => {
+                    document.title = this.state.title;
+                });
+            }} defaultValue={this.state.title} placeholder="タイトル" aria-label="タイトル" />
         );
     }
 }
 
 ReactDOM.render(
     <Title />,
-    document.getElementById('titleInput')
+    titleInput
 );
