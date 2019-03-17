@@ -17,3 +17,5 @@ require('./components/Example');
 require('./components/Title');
 require('./components/GekiEditor');
 require('./components/SaveButton');
+
+require('./GekitaApi');

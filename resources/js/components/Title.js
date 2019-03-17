@@ -9,6 +9,7 @@ export default class Title extends Component {
         this.state = {
             title: titleInput.dataset.title ? titleInput.dataset.title : ""
         };
+        document.title = this.state.title;
     }
 
     render() {

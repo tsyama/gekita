@@ -61054,6 +61054,66 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/GekitaApi.js":
+/*!***********************************!*\
+  !*** ./resources/js/GekitaApi.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return GekitaApi; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+var GekitaApi =
+/*#__PURE__*/
+function () {
+  function GekitaApi() {
+    _classCallCheck(this, GekitaApi);
+  }
+
+  _createClass(GekitaApi, null, [{
+    key: "scenarioCreate",
+    value: function scenarioCreate(title, body, succeed, fail) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/scenario", {
+        title: title,
+        body: body
+      }).then(function (result) {
+        succeed(result);
+      }).catch(function (result) {
+        fail(result);
+      });
+    }
+  }, {
+    key: "scenarioEdit",
+    value: function scenarioEdit(id, title, body, succeed, fail) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/scenario/" + id, {
+        title: title,
+        body: body
+      }).then(function (result) {
+        succeed(result);
+      }).catch(function (result) {
+        fail(result);
+      });
+    }
+  }]);
+
+  return GekitaApi;
+}();
+
+
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -61081,6 +61141,8 @@ __webpack_require__(/*! ./components/Title */ "./resources/js/components/Title.j
 __webpack_require__(/*! ./components/GekiEditor */ "./resources/js/components/GekiEditor.js");
 
 __webpack_require__(/*! ./components/SaveButton */ "./resources/js/components/SaveButton.js");
+
+__webpack_require__(/*! ./GekitaApi */ "./resources/js/GekitaApi.js");
 
 /***/ }),
 
@@ -61410,6 +61472,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _GekitaApi__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../GekitaApi */ "./resources/js/GekitaApi.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -61432,41 +61495,65 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+var saveButton = document.getElementById("saveButton");
+
 var SaveButton =
 /*#__PURE__*/
 function (_Component) {
   _inherits(SaveButton, _Component);
 
-  function SaveButton() {
+  function SaveButton(props) {
+    var _this;
+
     _classCallCheck(this, SaveButton);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(SaveButton).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(SaveButton).call(this, props));
+    _this.state = {
+      scenarioId: saveButton.dataset.scenarioId ? saveButton.dataset.scenarioId : ""
+    };
+    return _this;
   }
 
   _createClass(SaveButton, [{
     key: "scenarioSave",
     value: function scenarioSave() {
-      var title = document.getElementById("gekiTitle").value;
-      var body = document.getElementById("gekiBody").value;
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/api/scenario", {
-        title: title,
-        body: body
-      }).then(function (result) {
+      this.title = document.getElementById("gekiTitle").value;
+      this.body = document.getElementById("gekiBody").value;
+
+      if (this.state.scenarioId) {
+        this.scenarioEdit();
+      } else {
+        this.scenarioCreate();
+      }
+    }
+  }, {
+    key: "scenarioCreate",
+    value: function scenarioCreate() {
+      _GekitaApi__WEBPACK_IMPORTED_MODULE_3__["default"].scenarioCreate(this.title, this.body, function (result) {
         var scenario = result.data.scenario;
         window.location.href = "/scenarios/" + scenario.id + "/edit";
-      }).catch(function () {
+      }, function () {
+        console.log("通信に失敗しました");
+      });
+    }
+  }, {
+    key: "scenarioEdit",
+    value: function scenarioEdit() {
+      _GekitaApi__WEBPACK_IMPORTED_MODULE_3__["default"].scenarioEdit(this.state.scenarioId, this.title, this.body, function (result) {
+        console.log(result);
+      }, function () {
         console.log("通信に失敗しました");
       });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this = this;
+      var _this2 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "button",
         onClick: function onClick() {
-          return _this.scenarioSave();
+          return _this2.scenarioSave();
         },
         className: "btn btn-outline-primary",
         value: "\u4FDD\u5B58"
@@ -61478,7 +61565,7 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 
-react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SaveButton, null), document.getElementById('saveButton'));
+react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SaveButton, null), saveButton);
 
 /***/ }),
 
@@ -61532,6 +61619,7 @@ function (_Component) {
     _this.state = {
       title: titleInput.dataset.title ? titleInput.dataset.title : ""
     };
+    document.title = _this.state.title;
     return _this;
   }
 

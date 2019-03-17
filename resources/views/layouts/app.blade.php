@@ -19,7 +19,7 @@
                 <div id="titleInput" data-title="{{ $scenario->title ?? null }}"></div>
             </form>
             <ul class="navbar-nav ml-auto">
-                <li id="saveButton"></li>
+                <li id="saveButton" data-scenario-id="{{ $scenario->id ?? null }}"></li>
             </ul>
         </nav>
         <main class="py-4">
