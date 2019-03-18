@@ -23,7 +23,9 @@ export default class Title extends Component {
     }
 }
 
-ReactDOM.render(
-    <Title />,
-    titleInput
-);
+if (titleInput) {
+    ReactDOM.render(
+        <Title />,
+        titleInput
+    );
+}

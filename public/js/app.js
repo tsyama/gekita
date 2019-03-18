@@ -61142,6 +61142,8 @@ __webpack_require__(/*! ./components/GekiEditor */ "./resources/js/components/Ge
 
 __webpack_require__(/*! ./components/SaveButton */ "./resources/js/components/SaveButton.js");
 
+__webpack_require__(/*! ./components/GekiToast */ "./resources/js/components/GekiToast.js");
+
 __webpack_require__(/*! ./GekitaApi */ "./resources/js/GekitaApi.js");
 
 /***/ }),
@@ -61452,7 +61454,109 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 
-react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(GekiEditor, null), gekiEditor);
+
+if (gekiEditor) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(GekiEditor, null), gekiEditor);
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/GekiToast.js":
+/*!**********************************************!*\
+  !*** ./resources/js/components/GekiToast.js ***!
+  \**********************************************/
+/*! exports provided: gekiToastComponent, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "gekiToastComponent", function() { return gekiToastComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return GekiToast; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var gekiToast = document.getElementById("gekiToast");
+var gekiToastComponent;
+
+var GekiToast =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(GekiToast, _Component);
+
+  function GekiToast(props) {
+    var _this;
+
+    _classCallCheck(this, GekiToast);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(GekiToast).call(this, props));
+    _this.state = {
+      message: ""
+    };
+    return _this;
+  }
+
+  _createClass(GekiToast, [{
+    key: "render",
+    value: function render() {
+      gekiToastComponent = this;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "toast border-info",
+        role: "alert",
+        "aria-live": "assertive",
+        "aria-atomic": "true",
+        "data-delay": "3000"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "toast-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", {
+        className: "mr-auto"
+      }, "Gekita"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "ml-2 mb-1 close",
+        "data-dismiss": "toast",
+        "aria-label": "\u9589\u3058\u308B"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        "aria-hidden": "true"
+      }, "\xD7"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "toast-body"
+      }, this.state.message));
+    }
+  }], [{
+    key: "alert",
+    value: function alert(message) {
+      $(".toast-body").text(message);
+      $(".toast").toast("show");
+    }
+  }]);
+
+  return GekiToast;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+if (gekiToast) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(GekiToast, null), gekiToast);
+}
 
 /***/ }),
 
@@ -61470,9 +61574,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _GekitaApi__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../GekitaApi */ "./resources/js/GekitaApi.js");
+/* harmony import */ var _GekitaApi__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../GekitaApi */ "./resources/js/GekitaApi.js");
+/* harmony import */ var _GekiToast__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./GekiToast */ "./resources/js/components/GekiToast.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -61529,20 +61632,20 @@ function (_Component) {
   }, {
     key: "scenarioCreate",
     value: function scenarioCreate() {
-      _GekitaApi__WEBPACK_IMPORTED_MODULE_3__["default"].scenarioCreate(this.title, this.body, function (result) {
+      _GekitaApi__WEBPACK_IMPORTED_MODULE_2__["default"].scenarioCreate(this.title, this.body, function (result) {
         var scenario = result.data.scenario;
         window.location.href = "/scenarios/" + scenario.id + "/edit";
       }, function () {
-        console.log("通信に失敗しました");
+        _GekiToast__WEBPACK_IMPORTED_MODULE_3__["default"].alert("変更の保存に失敗しました");
       });
     }
   }, {
     key: "scenarioEdit",
     value: function scenarioEdit() {
-      _GekitaApi__WEBPACK_IMPORTED_MODULE_3__["default"].scenarioEdit(this.state.scenarioId, this.title, this.body, function (result) {
-        console.log(result);
+      _GekitaApi__WEBPACK_IMPORTED_MODULE_2__["default"].scenarioEdit(this.state.scenarioId, this.title, this.body, function () {
+        _GekiToast__WEBPACK_IMPORTED_MODULE_3__["default"].alert("変更を保存しました");
       }, function () {
-        console.log("通信に失敗しました");
+        _GekiToast__WEBPACK_IMPORTED_MODULE_3__["default"].alert("変更の保存に失敗しました");
       });
     }
   }, {
@@ -61565,7 +61668,10 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 
-react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SaveButton, null), saveButton);
+
+if (saveButton) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SaveButton, null), saveButton);
+}
 
 /***/ }),
 
@@ -61649,7 +61755,10 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 
-react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Title, null), titleInput);
+
+if (titleInput) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Title, null), titleInput);
+}
 
 /***/ }),
 

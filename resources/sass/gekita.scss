@@ -14,3 +14,12 @@
 .doo {
     margin-top: 100px;
 }
+
+#gekiToast {
+    position: fixed;
+    z-index: 999;
+    bottom: 30px;
+    right: 30px;
+    min-width: 300px;
+    max-width: 350px;
+}

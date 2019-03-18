@@ -92,7 +92,9 @@ export default class GekiEditor extends Component {
     }
 }
 
-ReactDOM.render(
-    <GekiEditor />,
-    gekiEditor
-);
+if (gekiEditor) {
+    ReactDOM.render(
+        <GekiEditor />,
+        gekiEditor
+    );
+}

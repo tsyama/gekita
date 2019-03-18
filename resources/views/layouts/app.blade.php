@@ -10,16 +10,15 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+    <div id="gekiToast"></div>
     <div id="app">
         <nav class="navbar navbar-dark bg-dark">
             <a class="navbar-brand" href="{{ url('/') }}">
                 GEKITA
             </a>
-            <form class="form-inline mr-auto col-sm-6" style="margin-top: 5px; margin-bottom: 5px;">
-                <div id="titleInput" data-title="{{ $scenario->title ?? null }}"></div>
-            </form>
+            @yield('head_form')
             <ul class="navbar-nav ml-auto">
-                <li id="saveButton" data-scenario-id="{{ $scenario->id ?? null }}"></li>
+                @yield('head_button')
             </ul>
         </nav>
         <main class="py-4">

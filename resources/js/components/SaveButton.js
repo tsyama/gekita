@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios';
 import GekitaApi from '../GekitaApi';
+import GekiToast from "./GekiToast";
 
 let saveButton = document.getElementById("saveButton");
 
@@ -29,13 +29,15 @@ export default class SaveButton extends Component {
             let scenario = result.data.scenario;
             window.location.href = "/scenarios/" + scenario.id + "/edit";
         }, () => {
-            console.log("通信に失敗しました");
+            GekiToast.alert("変更の保存に失敗しました");
         });
     }
 
     scenarioEdit() {
-        GekitaApi.scenarioEdit(this.state.scenarioId, this.title, this.body, () => {}, () => {
-            console.log("通信に失敗しました");
+        GekitaApi.scenarioEdit(this.state.scenarioId, this.title, this.body, () => {
+            GekiToast.alert("変更を保存しました");
+        }, () => {
+            GekiToast.alert("変更の保存に失敗しました");
         });
     }
 
@@ -44,7 +46,9 @@ export default class SaveButton extends Component {
     }
 }
 
-ReactDOM.render(
-    <SaveButton />,
-    saveButton
-);
+if (saveButton) {
+    ReactDOM.render(
+        <SaveButton />,
+        saveButton
+    );
+}
