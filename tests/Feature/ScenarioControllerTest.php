@@ -11,6 +11,12 @@ class ScenarioControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_脚本一覧画面にアクセスできる()
+    {
+        $response = $this->get("/scenarios");
+        $response->assertStatus(200);
+    }
+
     public function test_脚本編集画面にアクセスできる()
     {
         $scenarios = factory(Scenario::class, 3)->create();
