@@ -90,4 +90,27 @@ class ScenarioControllerTest extends TestCase
         ]);
         $this->assertDatabaseHas('scenarios', $postData);
     }
+
+    public function test_脚本削除APIにDELETEリクエストして脚本が削除できる()
+    {
+        $scenario = factory(Scenario::class)->create();
+        $response = $this->json('DELETE', '/api/scenario/' . $scenario->id);
+        $response->assertStatus(200);
+
+        $this->assertDatabaseMissing('scenarios', [
+            'id' => $scenario->id,
+            'deleted_at' => null,
+        ]);
+    }
+
+    public function test_脚本削除APIに適切な脚本IDを渡さなければ404エラー()
+    {
+        $scenarioId = 10000;
+        $this->assertDatabaseMissing('scenarios', [
+            'id' => $scenarioId,
+            'deleted_at' => null,
+        ]);
+        $response = $this->json('DELETE', '/api/scenario/' . $scenarioId);
+        $response->assertStatus(404);
+    }
 }

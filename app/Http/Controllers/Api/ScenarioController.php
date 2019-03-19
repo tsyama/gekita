@@ -57,4 +57,16 @@ class ScenarioController extends Controller
             'scenario' => $scenario,
         ];
     }
+
+    public function destroy(Request $request, $id)
+    {
+        $scenario = Scenario::find($id);
+        if (!$scenario) {
+            abort(404);
+        }
+        $scenario->delete();
+        return [
+            'scenario' => $scenario,
+        ];
+    }
 }
