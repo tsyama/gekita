@@ -18,5 +18,9 @@ require('./components/Title');
 require('./components/GekiEditor');
 require('./components/SaveButton');
 require('./components/GekiToast');
+require('./components/ScenarioDeleteBtn');
+require('./components/ScenarioRecord');
+require('./components/ScenarioTable');
 
 require('./GekitaApi');
+require('./gekita');

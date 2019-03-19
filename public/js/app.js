@@ -61082,6 +61082,15 @@ function () {
   }
 
   _createClass(GekitaApi, null, [{
+    key: "scenarioList",
+    value: function scenarioList(succeed, fail) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/scenario").then(function (result) {
+        succeed(result);
+      }).catch(function (result) {
+        fail(result);
+      });
+    }
+  }, {
     key: "scenarioCreate",
     value: function scenarioCreate(title, body, succeed, fail) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/scenario", {
@@ -61144,7 +61153,15 @@ __webpack_require__(/*! ./components/SaveButton */ "./resources/js/components/Sa
 
 __webpack_require__(/*! ./components/GekiToast */ "./resources/js/components/GekiToast.js");
 
+__webpack_require__(/*! ./components/ScenarioDeleteBtn */ "./resources/js/components/ScenarioDeleteBtn.js");
+
+__webpack_require__(/*! ./components/ScenarioRecord */ "./resources/js/components/ScenarioRecord.js");
+
+__webpack_require__(/*! ./components/ScenarioTable */ "./resources/js/components/ScenarioTable.js");
+
 __webpack_require__(/*! ./GekitaApi */ "./resources/js/GekitaApi.js");
+
+__webpack_require__(/*! ./gekita */ "./resources/js/gekita.js");
 
 /***/ }),
 
@@ -61675,6 +61692,263 @@ if (saveButton) {
 
 /***/ }),
 
+/***/ "./resources/js/components/ScenarioDeleteBtn.js":
+/*!******************************************************!*\
+  !*** ./resources/js/components/ScenarioDeleteBtn.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ScenarioDeleteBtn; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var ScenarioDeleteBtn =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(ScenarioDeleteBtn, _Component);
+
+  function ScenarioDeleteBtn(props) {
+    var _this;
+
+    _classCallCheck(this, ScenarioDeleteBtn);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ScenarioDeleteBtn).call(this, props));
+    _this.state = {
+      scenarioId: props.scenario_id
+    };
+    return _this;
+  }
+
+  _createClass(ScenarioDeleteBtn, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-sm btn-outline-danger btn-block scenario-delete-btn",
+        "data-scenario-id": this.state.scenarioId
+      }, "\u524A\u9664");
+    }
+  }]);
+
+  return ScenarioDeleteBtn;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/ScenarioRecord.js":
+/*!***************************************************!*\
+  !*** ./resources/js/components/ScenarioRecord.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ScenarioRecord; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ScenarioDeleteBtn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ScenarioDeleteBtn */ "./resources/js/components/ScenarioDeleteBtn.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var ScenarioRecord =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(ScenarioRecord, _Component);
+
+  function ScenarioRecord(props) {
+    var _this;
+
+    _classCallCheck(this, ScenarioRecord);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ScenarioRecord).call(this, props));
+    _this.state = {
+      scenarioId: props.scenario_id,
+      title: props.title,
+      updatedAt: props.updated_at
+    };
+    return _this;
+  }
+
+  _createClass(ScenarioRecord, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, this.state.updatedAt), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "/scenarios/" + this.state.scenarioId + "/edit/"
+      }, this.state.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-sm"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-sm btn-outline-primary btn-block"
+      }, "\u8AAD\u3080")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-sm"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-sm btn-outline-success btn-block"
+      }, "\u7DE8\u96C6")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-sm"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ScenarioDeleteBtn__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        scenario_id: this.state.scenarioId
+      })))));
+    }
+  }]);
+
+  return ScenarioRecord;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/ScenarioTable.js":
+/*!**************************************************!*\
+  !*** ./resources/js/components/ScenarioTable.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ScenarioTable; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _ScenarioRecord__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ScenarioRecord */ "./resources/js/components/ScenarioRecord.js");
+/* harmony import */ var _GekitaApi__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../GekitaApi */ "./resources/js/GekitaApi.js");
+/* harmony import */ var _GekiToast__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./GekiToast */ "./resources/js/components/GekiToast.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+var scenarioTable = document.getElementById("scenarioTable");
+
+var ScenarioTable =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(ScenarioTable, _Component);
+
+  function ScenarioTable(props) {
+    var _this;
+
+    _classCallCheck(this, ScenarioTable);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ScenarioTable).call(this, props));
+    _this.state = {
+      scenarios: []
+    };
+
+    _this.getScenarioList();
+
+    return _this;
+  }
+
+  _createClass(ScenarioTable, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "table"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", {
+        className: "thead-dark"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "#"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "\u30BF\u30A4\u30C8\u30EB"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "\u64CD\u4F5C"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, Array.from(this.state.scenarios).map(function (item, index) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ScenarioRecord__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          scenario_id: item.id,
+          title: item.title,
+          updated_at: item.updated_at,
+          key: index
+        });
+      })));
+    }
+  }, {
+    key: "getScenarioList",
+    value: function getScenarioList() {
+      var _this2 = this;
+
+      _GekitaApi__WEBPACK_IMPORTED_MODULE_3__["default"].scenarioList(function (result) {
+        _this2.setState({
+          scenarios: result.data.scenarios
+        });
+      }, function () {
+        _GekiToast__WEBPACK_IMPORTED_MODULE_4__["default"].alert("脚本一覧の取得に失敗しました");
+      });
+    }
+  }]);
+
+  return ScenarioTable;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+if (scenarioTable) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ScenarioTable, null), scenarioTable);
+}
+
+/***/ }),
+
 /***/ "./resources/js/components/Title.js":
 /*!******************************************!*\
   !*** ./resources/js/components/Title.js ***!
@@ -61759,6 +62033,17 @@ function (_Component) {
 if (titleInput) {
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Title, null), titleInput);
 }
+
+/***/ }),
+
+/***/ "./resources/js/gekita.js":
+/*!********************************!*\
+  !*** ./resources/js/gekita.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var scenarioDeleteBtn = document.getElementsByClassName("scenario-delete-btn");
 
 /***/ }),
 

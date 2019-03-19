@@ -9,9 +9,7 @@ class ScenarioController extends Controller
 {
     public function index()
     {
-        $scenarios = Scenario::orderBy('updated_at', 'desc')
-            ->get();
-        return view('scenario.index', compact('scenarios'));
+        return view('scenario.index');
     }
 
     public function edit(Request $request, $scenarioId)
