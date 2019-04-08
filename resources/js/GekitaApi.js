@@ -33,4 +33,15 @@ export default class GekitaApi {
                 fail(result);
             });
     }
+
+    static scenarioDelete(id, succeed,fail) {
+        axios
+            .delete("/api/scenario/" + id)
+            .then((result) => {
+                succeed(result);
+            })
+            .catch((result) => {
+                fail(result);
+            });
+    }
 }

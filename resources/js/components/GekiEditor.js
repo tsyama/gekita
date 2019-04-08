@@ -63,11 +63,11 @@ export default class GekiEditor extends Component {
 
         let dooCheck = line.match(/^\t(.*)/);
         if (dooCheck) {
-            return '<tr><td colspan="2"><span class="doo">' + dooCheck[1] + '</span></td></tr>'
+            return '<tr><td colspan="2" class="doo"><span>' + dooCheck[1] + '</span></td></tr>'
         }
         let serifs = line.split("\t");
         if (serifs.length >= 2) {
-            line = '<tr><td class="align-top"><span class="badge badge-dark">' + serifs[0] + '</span></td><td><span>' + serifs[1] + '</span></td></tr>';
+            line = '<tr><td class="align-top serif-column"><span class="badge badge-dark">' + serifs[0] + '</span></td><td><span>' + serifs[1] + '</span></td></tr>';
         }
         return line;
     }

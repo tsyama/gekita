@@ -10672,10 +10672,16 @@ a.text-dark:focus {
   -ms-writing-mode: tb-rl;
   writing-mode: vertical-rl;
   overflow: scroll;
+  word-break: break-all;
+}
+
+#gekiPreview .serif-column {
+  min-height: 50px;
+  padding-bottom: 20px;
 }
 
 .doo {
-  margin-top: 100px;
+  padding-top: 100px;
 }
 
 #gekiToast {

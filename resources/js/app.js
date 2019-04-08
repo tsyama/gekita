@@ -23,4 +23,3 @@ require('./components/ScenarioRecord');
 require('./components/ScenarioTable');
 
 require('./GekitaApi');
-require('./gekita');

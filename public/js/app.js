@@ -61114,6 +61114,15 @@ function () {
         fail(result);
       });
     }
+  }, {
+    key: "scenarioDelete",
+    value: function scenarioDelete(id, succeed, fail) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.delete("/api/scenario/" + id).then(function (result) {
+        succeed(result);
+      }).catch(function (result) {
+        fail(result);
+      });
+    }
   }]);
 
   return GekitaApi;
@@ -61160,8 +61169,6 @@ __webpack_require__(/*! ./components/ScenarioRecord */ "./resources/js/component
 __webpack_require__(/*! ./components/ScenarioTable */ "./resources/js/components/ScenarioTable.js");
 
 __webpack_require__(/*! ./GekitaApi */ "./resources/js/GekitaApi.js");
-
-__webpack_require__(/*! ./gekita */ "./resources/js/gekita.js");
 
 /***/ }),
 
@@ -61432,13 +61439,13 @@ function (_Component) {
       var dooCheck = line.match(/^\t(.*)/);
 
       if (dooCheck) {
-        return '<tr><td colspan="2"><span class="doo">' + dooCheck[1] + '</span></td></tr>';
+        return '<tr><td colspan="2" class="doo"><span>' + dooCheck[1] + '</span></td></tr>';
       }
 
       var serifs = line.split("\t");
 
       if (serifs.length >= 2) {
-        line = '<tr><td class="align-top"><span class="badge badge-dark">' + serifs[0] + '</span></td><td><span>' + serifs[1] + '</span></td></tr>';
+        line = '<tr><td class="align-top serif-column"><span class="badge badge-dark">' + serifs[0] + '</span></td><td><span>' + serifs[1] + '</span></td></tr>';
       }
 
       return line;
@@ -61704,6 +61711,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ScenarioDeleteBtn; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _GekitaApi__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../GekitaApi */ "./resources/js/GekitaApi.js");
+/* harmony import */ var _GekiToast__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./GekiToast */ "./resources/js/components/GekiToast.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -61721,6 +61730,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
 
 
 
@@ -61744,10 +61755,26 @@ function (_Component) {
   _createClass(ScenarioDeleteBtn, [{
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-sm btn-outline-danger btn-block scenario-delete-btn",
-        "data-scenario-id": this.state.scenarioId
+        "data-scenario-id": this.state.scenarioId,
+        onClick: function onClick() {
+          if (confirm("脚本を削除しますか？")) {
+            _this2.scenarioDelete();
+          }
+        }
       }, "\u524A\u9664");
+    }
+  }, {
+    key: "scenarioDelete",
+    value: function scenarioDelete() {
+      _GekitaApi__WEBPACK_IMPORTED_MODULE_1__["default"].scenarioDelete(this.state.scenarioId, function (result) {
+        _GekiToast__WEBPACK_IMPORTED_MODULE_2__["default"].alert("脚本の削除に成功しました");
+      }, function (result) {
+        _GekiToast__WEBPACK_IMPORTED_MODULE_2__["default"].alert("脚本の削除に失敗しました");
+      });
     }
   }]);
 
@@ -61824,12 +61851,14 @@ function (_Component) {
         className: "btn btn-sm btn-outline-primary btn-block"
       }, "\u8AAD\u3080")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-sm"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "/scenarios/" + this.state.scenarioId + "/edit/",
         className: "btn btn-sm btn-outline-success btn-block"
       }, "\u7DE8\u96C6")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-sm"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ScenarioDeleteBtn__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        scenario_id: this.state.scenarioId
+        scenario_id: this.state.scenarioId,
+        ref: "scenarioDeleteBtn"
       })))));
     }
   }]);
@@ -61919,9 +61948,15 @@ function (_Component) {
           scenario_id: item.id,
           title: item.title,
           updated_at: item.updated_at,
-          key: index
+          key: index,
+          ref: "scenarioRecord"
         });
       })));
+    }
+  }, {
+    key: "listRefresh",
+    value: function listRefresh() {
+      this.refs.scenarioRecord.listRefresh();
     }
   }, {
     key: "getScenarioList",
@@ -62033,17 +62068,6 @@ function (_Component) {
 if (titleInput) {
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Title, null), titleInput);
 }
-
-/***/ }),
-
-/***/ "./resources/js/gekita.js":
-/*!********************************!*\
-  !*** ./resources/js/gekita.js ***!
-  \********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var scenarioDeleteBtn = document.getElementsByClassName("scenario-delete-btn");
 
 /***/ }),
 

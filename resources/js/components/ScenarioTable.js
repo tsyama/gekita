@@ -30,13 +30,17 @@ export default class ScenarioTable extends Component {
                 {
                     Array.from(this.state.scenarios).map((item, index) => {
                         return (
-                            <ScenarioRecord scenario_id={item.id} title={item.title} updated_at={item.updated_at} key={index}/>
+                            <ScenarioRecord scenario_id={item.id} title={item.title} updated_at={item.updated_at} key={index} ref="scenarioRecord" />
                         );
                     })
                 }
                 </tbody>
             </table>
         );
+    }
+
+    listRefresh() {
+        this.refs.scenarioRecord.listRefresh();
     }
 
     getScenarioList() {

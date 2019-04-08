@@ -22,10 +22,10 @@ export default class ScenarioRecord extends Component {
                             <button className="btn btn-sm btn-outline-primary btn-block">読む</button>
                         </div>
                         <div className="col-sm">
-                            <button className="btn btn-sm btn-outline-success btn-block">編集</button>
+                            <a href={"/scenarios/" + this.state.scenarioId + "/edit/"} className="btn btn-sm btn-outline-success btn-block">編集</a>
                         </div>
                         <div className="col-sm">
-                            <ScenarioDeleteBtn scenario_id={this.state.scenarioId}/>
+                            <ScenarioDeleteBtn scenario_id={this.state.scenarioId} ref="scenarioDeleteBtn"/>
                         </div>
                     </div>
                 </td>
