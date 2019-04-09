@@ -14,3 +14,6 @@
 Route::get('/', 'HomeController@index');
 Route::resource('scenarios', 'ScenarioController');
 
+Route::get('login', 'LoginController@index');
+Route::get('login/redirect', 'LoginController@redirect');
+
