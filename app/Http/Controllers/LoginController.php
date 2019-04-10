@@ -2,49 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
+use App\User;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
+    use AuthenticatesUsers;
+
+    private $user;
+
+    public function __construct(User $user)
+    {
+//        $this->middleware('guest:admin')->except('logout');
+        $this->user = $user;
+    }
+
     public function index()
     {
-        $query = [
-            'client_id' => Config::get('google.client_id'),
-            'redirect_uri' => 'http://local-gekita.com/login/redirect',
-            'scope' => 'https://www.googleapis.com/auth/userinfo.profile',
-            'response_type' => 'code',
-        ];
-
-        return redirect('https://accounts.google.com/o/oauth2/auth?' . http_build_query($query));
+        return Socialite::driver('google')->redirect();
     }
 
     public function redirect()
     {
-        $baseUrl = 'https://accounts.google.com/o/oauth2/token';
-        $params = [
-            'code' => Input::get('code'),
-            'client_id' => Config::get('google.client_id'),
-            'client_secret' => Config::get('google.client_secret'),
-            'redirect_uri' => 'http://local-gekita.com/login/redirect',
-            'grant_type' => 'authorization_code',
-        ];
-
-        $headers = [
-            'Content-Type: application/x-www-form-urlencoded',
-        ];
-
-        $options = [
-            'http' => [
-                'method' => 'POST',
-                'content' => http_build_query($params),
-                'header' => implode("\r\n", $headers),
-            ],
-        ];
-
-        $response = json_decode(file_get_contents($baseUrl, false, stream_context_create($options)));
-
-        var_dump($response->access_token);
+        $googleUser = Socialite::driver('google')->user();
+        $user = User::firstOrNew(['email' => $googleUser->email]);
+        if (!$user->exists) {
+            $user->name = $googleUser->getNickName() ?? $googleUser->getName() ?? $googleUser->getNick();
+            $user->email = $googleUser->email;
+            $user->save();
+        }
+        Auth::login($user);
+        return redirect('/scenarios');
     }
 }

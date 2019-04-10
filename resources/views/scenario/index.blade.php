@@ -5,7 +5,11 @@
 
 @section('head_button')
     <li>
-        <input type="button" class="btn btn-outline-primary" value="テスト" />
+        @if ($user)
+            <a href="/login" class="btn btn-outline-primary">{{ $user->name }}さん</a>
+        @else
+            <a href="/login" class="btn btn-outline-primary">ログイン</a>
+        @endif
     </li>
 @endsection
 

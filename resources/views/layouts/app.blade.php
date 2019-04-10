@@ -13,7 +13,7 @@
     <div id="gekiToast"></div>
     <div id="app">
         <nav class="navbar navbar-dark bg-dark">
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand" href="{{ url('/scenarios') }}">
                 GEKITA
             </a>
             @yield('head_form')
