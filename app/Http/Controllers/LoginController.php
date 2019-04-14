@@ -36,6 +36,7 @@ class LoginController extends Controller
             $user->save();
         }
         Auth::login($user);
+        $user->setToken();
         return redirect('/scenarios');
     }
 }

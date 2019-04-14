@@ -19,4 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['api']], function() {
     Route::resource('scenario', 'Api\ScenarioController', ['except' => ['create', 'edit']]);
+    Route::get('user/{id}/scenarios', 'Api\UserController@getScenarios');
 });
