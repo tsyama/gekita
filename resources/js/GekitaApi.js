@@ -1,9 +1,13 @@
 import axios from 'axios';
 
 export default class GekitaApi {
-    static scenarioList(succeed, fail) {
+    static scenarioList(id, token, succeed, fail) {
         axios
-            .get("/api/scenario")
+            .get("/api/user/" + id + "/scenarios", {
+                params: {
+                    token: token
+                }
+            })
             .then((result) => {
                 succeed(result);
             })

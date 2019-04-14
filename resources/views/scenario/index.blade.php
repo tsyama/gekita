@@ -4,13 +4,15 @@
 @endsection
 
 @section('head_button')
-    <li>
-        @if ($user)
-            <a href="/login" class="btn btn-outline-primary">{{ $user->name }}さん</a>
-        @else
+    @if ($user)
+            <a href="/login" id="loginUser" class="nav-item nav-link" data-user-id="{{ $user->id }}" data-token="{{ $user->access_token }}">
+                {{ $user->name }}さん
+            </a>
+    @else
+        <li>
             <a href="/login" class="btn btn-outline-primary">ログイン</a>
-        @endif
-    </li>
+        </li>
+    @endif
 @endsection
 
 @section('content')

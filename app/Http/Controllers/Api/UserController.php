@@ -18,6 +18,6 @@ class UserController extends Controller
             throw new AccessDeniedHttpException();
         }
         $scenarios = $user->getScenarios();
-        return $scenarios;
+        return ['scenarios' => $scenarios];
     }
 }

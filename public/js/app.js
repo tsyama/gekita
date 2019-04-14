@@ -61083,8 +61083,12 @@ function () {
 
   _createClass(GekitaApi, null, [{
     key: "scenarioList",
-    value: function scenarioList(succeed, fail) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/scenario").then(function (result) {
+    value: function scenarioList(id, token, succeed, fail) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/user/" + id + "/scenarios", {
+        params: {
+          token: token
+        }
+      }).then(function (result) {
         succeed(result);
       }).catch(function (result) {
         fail(result);
@@ -61963,7 +61967,8 @@ function (_Component) {
     value: function getScenarioList() {
       var _this2 = this;
 
-      _GekitaApi__WEBPACK_IMPORTED_MODULE_3__["default"].scenarioList(function (result) {
+      var loginUser = document.getElementById("loginUser");
+      _GekitaApi__WEBPACK_IMPORTED_MODULE_3__["default"].scenarioList(loginUser.dataset.userId, loginUser.dataset.token, function (result) {
         _this2.setState({
           scenarios: result.data.scenarios
         });

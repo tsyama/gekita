@@ -44,7 +44,8 @@ export default class ScenarioTable extends Component {
     }
 
     getScenarioList() {
-        GekitaApi.scenarioList((result) => {
+        let loginUser = document.getElementById("loginUser");
+        GekitaApi.scenarioList(loginUser.dataset.userId, loginUser.dataset.token, (result) => {
             this.setState({scenarios: result.data.scenarios});
         }, () => {
             GekiToast.alert("脚本一覧の取得に失敗しました");
